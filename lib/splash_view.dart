@@ -1,7 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:where_am_i/error_view.dart';
 import 'package:where_am_i/location/fetch.dart';
+import 'package:where_am_i/result_view.dart';
 
 class AnimatedSplashScreen extends StatefulWidget {
   const AnimatedSplashScreen({super.key});
@@ -42,29 +44,37 @@ class SplashScreenState extends State<AnimatedSplashScreen>
         vsync: this, duration: Duration(milliseconds: _duration + _buffer));
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.0, 1.0, curve: Curves.fastOutSlowIn)));
+        curve: const Interval(0.0, 1.0, curve: Curves.bounceIn)));
 
     _animation.addListener(() => setState(() {}));
     _animationController.forward();
 
     startTime();
     Future<CurrentLocation> futureLocation = fetchLocation();
+
     futureLocation
         .then((value) => addLocation(value))
-        .onError((error, stackTrace) => showError(error));
+        .onError((error, stackTrace) => showError(error))
+        .catchError((error) => showError(error));
   }
 
   void showError(error) {
-    switch (error) {
-      case internalError:
-        print("hehe waa yede");
-    }
+    Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ErrorView(error),
+        ));
   }
 
   void addLocation(CurrentLocation fetchedLocation) {
     setState(() {
       currentLocation = fetchedLocation;
     });
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => ResultView(fetchedLocation)),
+    );
   }
 
   @override

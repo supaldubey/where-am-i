@@ -2,28 +2,27 @@ import 'package:location/location.dart';
 import 'package:geocode/geocode.dart';
 
 class CurrentLocation {
-  String? street1;
-  String? street2;
+  String? streetAddress;
   String? city;
   String? country;
   double? latitude;
   double? longitude;
+  double? accuracy;
 
-  CurrentLocation.create(this.street1, this.street2, this.city, this.country,
-      this.latitude, this.longitude);
+  CurrentLocation.create(this.streetAddress, this.city, this.country,
+      this.latitude, this.longitude, this.accuracy);
 }
 
 const internalError = "internal_error";
 const locationDisabled = "location_disabled";
 const permissionError = "no_permission";
 
-
 Future<CurrentLocation> fetchLocation() async {
   Location location = Location();
-
   bool serviceEnabled = false;
   PermissionStatus permissionGranted;
   serviceEnabled = await location.serviceEnabled();
+
   if (!serviceEnabled) {
     serviceEnabled = await location.requestService();
     if (!serviceEnabled) {
@@ -38,26 +37,29 @@ Future<CurrentLocation> fetchLocation() async {
       return Future.error(permissionError);
     }
   }
+
   LocationData? locationData;
 
   try {
     locationData = await location.getLocation();
-  } catch (err) {
-    return Future.error(internalError);
-  }
-
-  try {
     var reverseGeocoding = await GeoCode().reverseGeocoding(
         latitude: locationData.latitude!, longitude: locationData.longitude!);
 
     return CurrentLocation.create(
-        reverseGeocoding.region,
-        reverseGeocoding.streetAddress,
+        findAddress(reverseGeocoding),
         reverseGeocoding.city,
-        reverseGeocoding.countryName,
+        reverseGeocoding.countryCode,
         locationData.latitude,
-        locationData.longitude);
+        locationData.longitude,
+        locationData.accuracy);
   } catch (err) {
-    return Future.error(internalError);
+    return Future.error(err);
   }
+}
+
+String? findAddress(Address reverseGeocoding) {
+  int? streetNumber = reverseGeocoding.streetNumber;
+  String? streetAddress = reverseGeocoding.streetAddress;
+
+  return '$streetNumber, $streetAddress';
 }

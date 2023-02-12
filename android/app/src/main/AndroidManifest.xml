@@ -3,12 +3,13 @@
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
 
-   <application
+
+    <application
         android:label="where_am_i"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-
 
 
         <activity
