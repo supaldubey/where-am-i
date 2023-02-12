@@ -2,6 +2,17 @@
 
 Where am I, helps you fetch your current location address and displays it.
 
+## Why 
+This doesn't make any sense 
+
+![Splash / Launcher screen](https://sayingimages.com/wp-content/uploads/jackie-chan-wait-what-meme.jpg "meme")
+
+
+Few reasons: 
+- Just brushing up Flutter skills.
+- Had a draft project for something else, repurposed for something I needed. 
+
+
 ## Screenshots
 
 ![Splash / Launcher screen](/screens/launch.png?raw=true "Launcher")
