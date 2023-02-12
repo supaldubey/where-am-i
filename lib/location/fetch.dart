@@ -21,8 +21,22 @@ class CurrentLocation {
       this.latitude, this.longitude, this.accuracy);
 }
 
+// Its bad but its probably only hack that works?
+// https://github.com/Lyokone/flutterlocation/issues/568
+Future<void> initLocation(Location loc, {int limit = 13}) async {
+  for (int i = 0; i < limit; i++) {
+    try {
+      await loc.serviceEnabled();
+      return;
+    } catch (err) {
+      await Future.delayed(const Duration(milliseconds: 50));
+    }
+  }
+}
+
 Future<CurrentLocation> fetchLocation() async {
   Location location = Location();
+  await initLocation(location);
   bool serviceEnabled = false;
   PermissionStatus permissionGranted;
   serviceEnabled = await location.serviceEnabled();
