@@ -1,6 +1,14 @@
 import 'package:location/location.dart';
 import 'package:geocode/geocode.dart';
 
+const internalError = "internal_error";
+const locationDisabled = "location_disabled";
+const permissionError = "no_permission";
+
+// replace your keys here or else use GeoCode()
+// instead of GeoCode(apiKey: geoCodeApiKey)
+const geoCodeApiKey = "";
+
 class CurrentLocation {
   String? streetAddress;
   String? city;
@@ -12,10 +20,6 @@ class CurrentLocation {
   CurrentLocation.create(this.streetAddress, this.city, this.country,
       this.latitude, this.longitude, this.accuracy);
 }
-
-const internalError = "internal_error";
-const locationDisabled = "location_disabled";
-const permissionError = "no_permission";
 
 Future<CurrentLocation> fetchLocation() async {
   Location location = Location();
@@ -42,8 +46,10 @@ Future<CurrentLocation> fetchLocation() async {
 
   try {
     locationData = await location.getLocation();
-    var reverseGeocoding = await GeoCode().reverseGeocoding(
-        latitude: locationData.latitude!, longitude: locationData.longitude!);
+    var reverseGeocoding = await GeoCode(apiKey: geoCodeApiKey)
+        .reverseGeocoding(
+            latitude: locationData.latitude!,
+            longitude: locationData.longitude!);
 
     return CurrentLocation.create(
         findAddress(reverseGeocoding),

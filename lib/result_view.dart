@@ -34,7 +34,7 @@ class _ResultViewState extends State<ResultView> with TickerProviderStateMixin {
         vsync: this, duration: Duration(milliseconds: _duration + _buffer));
     _animation = Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: _animationController,
-        curve: const Interval(0.0, 1.0, curve: Curves.elasticIn)));
+        curve: const Interval(0.0, 1.0, curve: Curves.easeIn)));
 
     _animation.addListener(() => setState(() {}));
     _animationController.forward();

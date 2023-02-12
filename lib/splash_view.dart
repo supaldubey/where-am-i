@@ -87,14 +87,12 @@ class SplashScreenState extends State<AnimatedSplashScreen>
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "?",
-                style: TextStyle(
-                    fontSize: 275 * _animation.value,
-                    color: Colors.blue,
-                    fontWeight: FontWeight.w800),
+              Icon(
+                Icons.location_on,
+                size: 275 * _animation.value,
+                weight: 800,
+                color: Colors.blue,
               ),
-              Text(currentLocation != null ? toText() : "")
             ],
           ),
         ],
