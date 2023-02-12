@@ -92,9 +92,8 @@ class _ResultViewState extends State<ResultView> with TickerProviderStateMixin {
                     boxShadow: [
                       BoxShadow(
                         color: Colors.grey.withOpacity(0.03),
-                        spreadRadius: 10,
-                        blurRadius: 3,
-                        // changes position of shadow
+                        spreadRadius: 15,
+                        blurRadius: 4,
                       ),
                     ]),
                 child: Padding(
@@ -147,7 +146,9 @@ class _ResultViewState extends State<ResultView> with TickerProviderStateMixin {
                           Column(
                             children: [
                               Text(
-                                location.latitude.toString(),
+                                location.latitude != null
+                                    ? location.latitude!.toStringAsFixed(2)
+                                    : "NA",
                                 style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -173,7 +174,9 @@ class _ResultViewState extends State<ResultView> with TickerProviderStateMixin {
                           Column(
                             children: [
                               Text(
-                                location.longitude.toString(),
+                                location.longitude != null
+                                    ? location.longitude!.toStringAsFixed(2)
+                                    : "NA",
                                 style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -199,7 +202,9 @@ class _ResultViewState extends State<ResultView> with TickerProviderStateMixin {
                           Column(
                             children: [
                               Text(
-                                location.accuracy.toString(),
+                                location.accuracy != null
+                                    ? location.accuracy!.toStringAsFixed(2)
+                                    : "NA",
                                 style: const TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,
@@ -258,9 +263,9 @@ class _ResultViewState extends State<ResultView> with TickerProviderStateMixin {
                                     width: 50,
                                     height: 50,
                                     decoration: BoxDecoration(
-                                        color: Colors.blue,
-                                        borderRadius: BorderRadius.circular(15),
-                                        ),
+                                      color: Colors.blue,
+                                      borderRadius: BorderRadius.circular(15),
+                                    ),
                                     child: const Center(
                                         child: Icon(Icons.location_city)),
                                   ),
