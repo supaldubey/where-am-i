@@ -1,6 +1,6 @@
 # where_am_i
 
-Where am I, helps you fetch your current location address and displays it.
+The app (where Am I) helps you fetch your current location address and displays it.
 
 [Play Store Listing](https://play.google.com/store/apps/details?id=in.cubestack.apps.whereami)
 
