@@ -13,7 +13,7 @@ class ResultView extends StatefulWidget {
 }
 
 class _ResultViewState extends State<ResultView> with TickerProviderStateMixin {
-  final int _duration = 1500;
+  final int _duration = 500;
   final int _buffer = 500;
 
   late AnimationController _animationController;
